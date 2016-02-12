@@ -17,15 +17,15 @@ from charms.reactive import hook
 from charms.reactive import scopes
 
 
-class FlinkProvides(RelationBase):
+class OozieProvides(RelationBase):
     scope = scopes.GLOBAL
 
-    @hook('{provides:flink}-relation-joined')
+    @hook('{provides:oozie}-relation-joined')
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.related')
 
-    @hook('{requires:flink}-relation-departed')
+    @hook('{requires:oozie}-relation-departed')
     def departed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.related')

@@ -16,24 +16,24 @@ from charms.reactive import hook
 from charms.reactive import scopes
 
 
-class FlinkRequires(RelationBase):
+class OozieRequires(RelationBase):
     scope = scopes.GLOBAL
 
     def installed(self):
         return self.get_remote('installed', 'false').lower() == 'true'
 
-    @hook('{requires:flink}-relation-joined')
+    @hook('{requires:oozie}-relation-joined')
     def joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.related')
 
-    @hook('{requires:flink}-relation-changed')
+    @hook('{requires:oozie}-relation-changed')
     def changed(self):
         conv = self.conversation()
         if self.installed():
             conv.set_state('{relation_name}.available')
 
-    @hook('{provides:flink}-relation-departed')
+    @hook('{provides:oozie}-relation-departed')
     def departed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.related')
